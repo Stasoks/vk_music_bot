@@ -37,3 +37,13 @@ def create_payment_link(order_id, amount=AMOUNT):
         return response.json().get('payment_url')
     else:
         return None
+    
+def check_payment_status(order_id):
+
+    url = f'https://platega.io/api/v1/invoice/status/{order_id}'
+    headers = {'Authorization': f'Bearer {API_KEY}'}
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        return response.json().get('status')
+    return None

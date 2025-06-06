@@ -11,6 +11,7 @@ from config import *
 import sqlite3
 from utils import *
 import requests
+from aiogram.enums.parse_mode import ParseMode
 
 connection = sqlite3.connect('Users.db')
 
@@ -139,8 +140,8 @@ async def handle_message(message: types.Message):
         transactions = cursor.fetchone()[0]
         label = str(userid) + '_' + str(transactions)
 
-        if check_payment(label):
-            await message.answer("Отлично, оплата прошла")
+        if check_payment(label) or check_payment_status(label) == 'paid':
+            await message.answer(f'Отлично, оплата прошла, вот ваша ссылка на товар: <a href="{LINK}">ссылка на товар</a>', parse_mode=ParseMode.HTML)
             await bot.send_message(chat_id=ADMIN_ID, text = f'{message.from_user.username} приобрел подписку')
 
             cursor.execute("UPDATE Users SET Transactions = ? WHERE id = ?",(transactions+1, userid))
