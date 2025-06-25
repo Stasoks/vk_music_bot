@@ -16,7 +16,7 @@ from aiogram.enums.parse_mode import ParseMode
 connection = sqlite3.connect('Users.db')
 
 client = Client(YOOMONEY_TOKEN)
-BOT_TOKEN = '7992485525:AAGmUGOWwo4s1TXhyuZaMQFYAm_MMLwepIU'
+BOT_TOKEN = ''
 bot = Bot(
     token=BOT_TOKEN,
     default=DefaultBotProperties(parse_mode="HTML")
